@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+dist/
+build/
+*.spec
+*.manifest
+*.egg
+*.egg-info/
+
+# PyInstaller
+build/
+dist/
+
+# IDE
+.idea/
+.vscode/
+
+# Environment
+venv/
+env/
+ENV/
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Log files
+*.log
+
+# Local development settings
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
