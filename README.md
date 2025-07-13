@@ -4,7 +4,7 @@
 [![Python](https://img.shields.io/badge/python-3.7+-blue.svg)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey.svg)]()
 
-> 专为华中科技大学学生打造的实用工具包 🎓
+> 专为 Huster 打造的实用工具包 🎓
 
 **作者：** Orange 🍊
 
