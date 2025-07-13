@@ -12,7 +12,7 @@
 
 ## 📖 项目简介
 
-Hust-ToolBox 是一个专为华中科技大学（HUST）学生设计的综合性工具包，旨在简化日常学习和生活中的各种操作，提高效率。
+Hust-ToolBox 是一个专为 Huster 设计的综合性工具包，旨在简化日常学习和生活中的各种操作，提高效率。
 
 ## ✨ 功能特性
 
@@ -73,7 +73,7 @@ Hust-ToolBox 是一个专为华中科技大学（HUST）学生设计的综合性
 ---
 
 <div align="center">
-  <b>为华科学子的便利生活而生 🎓</b>
+  <b>为Huster的便利生活而生 🎓</b>
   <br>
   Made with ❤️ by Orange
 </div>
