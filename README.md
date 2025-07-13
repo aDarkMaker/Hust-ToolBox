@@ -70,6 +70,10 @@ Hust-ToolBox 是一个专为 Huster 设计的综合性工具包，旨在简化�
 
 感谢所有为本项目贡献代码和建议的同学们！
 
+## 许可
+
+MIT License
+
 ---
 
 <div align="center">

@@ -18,7 +18,3 @@
 ## 致谢
 
 感谢我的可爱舍友(雾) [HomeArchbishop/hustcode](https://github.com/HomeArchbishop/hustcode) 提供的技术支持。
-
-## 许可
-
-MIT License
