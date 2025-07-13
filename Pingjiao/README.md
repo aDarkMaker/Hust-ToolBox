@@ -2,7 +2,7 @@
 
 # 自动评教脚本
 
-这是一个基于 Tampermonkey（暴力猴）的自动评教脚本，可以帮助学生快速完成教学评价问卷。
+这是一个基于 Violentmonkey（暴力猴）的自动评教脚本，可以帮助学生快速完成教学评价问卷。
 
 ## 功能特点
 
@@ -15,29 +15,29 @@
 
 ## 安装步骤
 
-### 1. 安装 Tampermonkey 扩展
+### 1. 安装 Violentmonkey 扩展
 
 #### Chrome 浏览器：
 
 1. 打开 Chrome Web Store
-2. 搜索"Tampermonkey"
+2. 搜索"Violentmonkey"
 3. 点击"添加至 Chrome"
 
 #### Firefox 浏览器：
 
 1. 打开 Firefox Add-ons
-2. 搜索"Tampermonkey"
+2. 搜索"Violentmonkey"
 3. 点击"添加至 Firefox"
 
 #### Edge 浏览器：
 
 1. 打开 Microsoft Edge Add-ons
-2. 搜索"Tampermonkey"
+2. 搜索"Violentmonkey"
 3. 点击"获取"
 
 ### 2. 安装脚本
 
-1. 点击 Tampermonkey 图标，选择"添加新脚本"
+1. 点击 Violentmonkey 图标，选择"添加新脚本"
 2. 删除默认内容，复制粘贴`kick.js`文件的全部内容
 3. 按 Ctrl+S 保存脚本
 
