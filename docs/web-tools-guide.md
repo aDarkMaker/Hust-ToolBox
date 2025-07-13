@@ -27,7 +27,7 @@
 1. 打开 [Chrome 网上应用店](https://chrome.google.com/webstore)
 2. 搜索 `Violentmonkey` 或直接访问：
    ```
-   https://chrome.google.com/webstore/detail/Violentmonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo
+   https://chrome.google.com/webstore/detail/Violentmonkey/
    ```
 3. 点击 **"添加至 Chrome"** 按钮
 4. 在弹出的确认对话框中点击 **"添加扩展程序"**
@@ -68,7 +68,7 @@
 1. 打开 [Microsoft Edge 扩展商店](https://microsoftedge.microsoft.com/addons)
 2. 搜索 `Violentmonkey` 或直接访问：
    ```
-   https://microsoftedge.microsoft.com/addons/detail/Violentmonkey/iikmkjmpaadaobahmlepeloendndfphd
+   https://microsoftedge.microsoft.com/addons/detail/暴力猴/eeagobfjdenkkddmbclomhiblgggliao
    ```
 3. 点击 **"获取"** 按钮
 4. 确认添加扩展程序
