@@ -150,8 +150,51 @@
         document.body.appendChild(progressDiv);
     }
 
+    // 添加调试函数
+    function debugPageStructure() {
+        console.log('=== 页面结构调试 ===');
+
+        const questionGroups = document.querySelectorAll('.form-group');
+        console.log(`发现题目组数量: ${questionGroups.length}`);
+
+        questionGroups.forEach((group, index) => {
+            if (index < 5) { // 只调试前5题
+                console.log(`\n--- 题目 ${index + 1} ---`);
+
+                const hiddenInput = group.querySelector('input.dxClass[type="hidden"]');
+                if (hiddenInput) {
+                    console.log(`隐藏输入值: ${hiddenInput.value}`);
+                    console.log(`提取的题目ID: ${hiddenInput.value.split('_')[0]}`);
+                }
+
+                const radioButtons = group.querySelectorAll('input.xxClass[type="radio"]');
+                const checkboxButtons = group.querySelectorAll('input.xxClass[type="checkbox"]');
+
+                console.log(`单选项数量: ${radioButtons.length}`);
+                console.log(`多选项数量: ${checkboxButtons.length}`);
+
+                if (radioButtons.length > 0) {
+                    console.log('单选项值:', Array.from(radioButtons).map(r => r.value));
+                }
+
+                if (checkboxButtons.length > 0) {
+                    console.log('多选项值:', Array.from(checkboxButtons).map(c => c.value));
+                }
+
+                // 查看题目文本
+                const questionText = group.querySelector('.stClass');
+                if (questionText) {
+                    console.log(`题目文本: ${questionText.textContent.trim().substring(0, 50)}...`);
+                }
+            }
+        });
+    }
+
     function performAutoAnswer() {
         showProgress('🚀 开始自动答题 (100%正确率模式)...');
+
+        // 添加调试信息
+        debugPageStructure();
 
         try {
             const questionGroups = document.querySelectorAll('.form-group');
@@ -179,9 +222,14 @@
                     if (index === questionGroups.length - 1) {
                         setTimeout(() => {
                             showProgress(`🎉 自动答题完成！共完成 ${answeredCount} 题 (100%正确率)`, 'success');
-                            setTimeout(() => {
-                                showProgress('💡 请手动点击页面底部的"确定"按钮提交答案', 'info');
-                            }, 3000);
+                            if (answeredCount === 0) {
+                                showProgress('❌ 未能识别任何题目，请检查页面结构或答案库', 'error');
+                                console.log('请在控制台查看调试信息');
+                            } else {
+                                setTimeout(() => {
+                                    showProgress('💡 请手动点击页面底部的"确定"按钮提交答案', 'info');
+                                }, 3000);
+                            }
                         }, 500);
                     }
                 }, index * 200);
@@ -197,66 +245,94 @@
         // 获取题目的隐藏输入框，从中提取题目ID
         const hiddenInput = questionGroup.querySelector('input.dxClass[type="hidden"]');
         if (!hiddenInput) {
+            console.log(`❌ 题目${questionNum} - 未找到隐藏输入框`);
             return false;
         }
 
         const hiddenValue = hiddenInput.value;
-        const questionId = hiddenValue.split('_')[0]; // 提取题目ID
+        console.log(`🔍 题目${questionNum} - 隐藏值: ${hiddenValue}`);
+
+        // 提取题目ID（隐藏值格式如: "282_1_1_一"）
+        const questionId = hiddenValue.split('_')[0];
+        console.log(`🔍 题目${questionNum} - 提取的题目ID: ${questionId}`);
 
         // 查找该题目组中的所有输入选项
         const radioButtons = questionGroup.querySelectorAll('input.xxClass[type="radio"]');
         const checkboxButtons = questionGroup.querySelectorAll('input.xxClass[type="checkbox"]');
+
+        console.log(`🔍 题目${questionNum} - 找到单选项: ${radioButtons.length}, 多选项: ${checkboxButtons.length}`);
 
         let answered = false;
 
         // 处理单选题
         if (radioButtons.length > 0) {
             const correctValue = correctAnswers[questionId];
+            console.log(`🔍 题目${questionNum} - 查找答案: ${correctValue}`);
+
             if (correctValue) {
+                // 输出所有可用选项的值，便于调试
+                console.log(`🔍 题目${questionNum} - 可用选项值:`, Array.from(radioButtons).map(r => r.value));
+
                 for (let radio of radioButtons) {
                     if (radio.value === correctValue) {
-                        radio.checked = true;
-                        radio.click();
+                        // 先取消选中所有同组选项
+                        radioButtons.forEach(r => r.checked = false);
 
-                        const changeEvent = new Event('change', { bubbles: true });
-                        radio.dispatchEvent(changeEvent);
+                        // 选中正确答案
+                        radio.checked = true;
+
+                        // 触发事件
+                        radio.dispatchEvent(new Event('change', { bubbles: true }));
+                        radio.dispatchEvent(new Event('click', { bubbles: true }));
 
                         answered = true;
-                        console.log(`✅ 题目${questionNum} (ID: ${questionId}) - 精确匹配正确答案`);
+                        console.log(`✅ 题目${questionNum} (ID: ${questionId}) - 已选择: ${correctValue}`);
                         break;
                     }
                 }
+
+                if (!answered) {
+                    console.warn(`⚠️ 题目${questionNum} (ID: ${questionId}) - 未找到匹配的选项值: ${correctValue}`);
+                }
+            } else {
+                console.warn(`⚠️ 题目${questionNum} (ID: ${questionId}) - 答案库中无此题目`);
             }
         }
 
         // 处理多选题
         if (checkboxButtons.length > 0 && !answered) {
             const correctValues = multipleChoiceAnswers[questionId];
+            console.log(`🔍 题目${questionNum} - 多选答案: ${correctValues}`);
+
             if (correctValues && correctValues.length > 0) {
+                // 输出所有可用选项的值，便于调试
+                console.log(`🔍 题目${questionNum} - 可用多选项值:`, Array.from(checkboxButtons).map(c => c.value));
+
                 // 先清除所有选择
                 checkboxButtons.forEach(checkbox => {
                     checkbox.checked = false;
                 });
 
                 // 选择正确答案
+                let selectedCount = 0;
                 for (let checkbox of checkboxButtons) {
                     if (correctValues.includes(checkbox.value)) {
                         checkbox.checked = true;
-                        checkbox.click();
-
-                        const changeEvent = new Event('change', { bubbles: true });
-                        checkbox.dispatchEvent(changeEvent);
+                        checkbox.dispatchEvent(new Event('change', { bubbles: true }));
+                        checkbox.dispatchEvent(new Event('click', { bubbles: true }));
+                        selectedCount++;
                     }
                 }
 
-                answered = true;
-                console.log(`✅ 题目${questionNum} (ID: ${questionId}) - 精确匹配多选答案 (${correctValues.length}项)`);
+                if (selectedCount > 0) {
+                    answered = true;
+                    console.log(`✅ 题目${questionNum} (ID: ${questionId}) - 已选择 ${selectedCount} 项多选答案`);
+                } else {
+                    console.warn(`⚠️ 题目${questionNum} (ID: ${questionId}) - 未找到匹配的多选项`);
+                }
+            } else {
+                console.warn(`⚠️ 题目${questionNum} (ID: ${questionId}) - 多选答案库中无此题目`);
             }
-        }
-
-        // 如果没有在答案库中找到，记录警告
-        if (!answered) {
-            console.warn(`⚠️ 题目${questionNum} (ID: ${questionId}) - 未在答案库中找到，请手动检查`);
         }
 
         return answered;
