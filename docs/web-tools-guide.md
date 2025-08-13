@@ -25,9 +25,9 @@
 #### 方法一：Chrome 网上应用店（推荐）
 
 1. 打开 [Chrome 网上应用店](https://chrome.google.com/webstore)
-2. 搜索 `Violentmonkey` 或直接访问：
+2. 搜索 `篡改猴` 或直接访问：
    ```
-   https://chrome.google.com/webstore/detail/Violentmonkey/
+   https://chromewebstore.google.com/detail/篡改猴/dhdgffkkebhmkfjojejmpbldmpobfkfo
    ```
 3. 点击 **"添加至 Chrome"** 按钮
 4. 在弹出的确认对话框中点击 **"添加扩展程序"**
