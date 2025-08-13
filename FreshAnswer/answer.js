@@ -82,9 +82,7 @@
 
     // 添加一键开学按钮
     function addAutoAnswerButton() {
-        if (!isTestPage()) {
-            return;
-        }
+
 
         const buttonContainer = document.createElement('div');
         buttonContainer.style.cssText = `
@@ -150,15 +148,6 @@
             min-width: 220px;
         `;
         document.body.appendChild(progressDiv);
-    }
-
-    function isTestPage() {
-        const title = document.querySelector('.title span');
-        const formGroups = document.querySelectorAll('.form-group');
-        const radioInputs = document.querySelectorAll('input.xxClass[type="radio"]');
-
-        return (title && title.textContent.includes('新生入学测试')) ||
-            (formGroups.length > 0 && radioInputs.length > 0);
     }
 
     function performAutoAnswer() {
@@ -308,9 +297,8 @@
     document.addEventListener('keydown', function (e) {
         if (e.ctrlKey && e.shiftKey && e.key === 'S') {
             e.preventDefault();
-            if (isTestPage()) {
-                performAutoAnswer();
-            }
+            performAutoAnswer();
+
         }
     });
 
